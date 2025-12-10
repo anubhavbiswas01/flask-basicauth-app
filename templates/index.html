@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anubhav Biswas | Portfolio</title>
+
+  <!-- Basic Styling -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout Helpers */
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      color: #38bdf8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #38bdf8;
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile nav button */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      width: 22px;
+      height: 2px;
+      background: #e5e7eb;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 5%;
+        background: #020617;
+        flex-direction: column;
+        width: 200px;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+    }
+
+    /* Hero Section */
+    #home {
+      padding: 4rem 0 3rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title span {
+      color: #38bdf8;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #cbd5f5;
+      margin-bottom: 1rem;
+    }
+
+    .hero-description {
+      font-size: 0.98rem;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #e5e7eb;
+      border-color: rgba(148, 163, 184, 0.7);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 15px 30px rgba(15, 23, 42, 0.7);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .tag {
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.2), transparent 55%),
+                  #020617;
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-card p {
+      font-size: 0.9rem;
+      color: #cbd5f5;
+      margin-bottom: 1rem;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+
+    .hero-card li::before {
+      content: "• ";
+      color: #38bdf8;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Section Title */
+    .section {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 2rem;
+    }
+
+    .about-text {
+      font-size: 0.95rem;
+      color: #d1d5db;
+    }
+
+    .about-text p {
+      margin-bottom: 0.75rem;
+    }
+
+    .about-list {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .about-list li {
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .about-list span {
+      color: #9ca3af;
+    }
+
+    .about-card {
+      background: #020617;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-card {
+      background: #020617;
+      border-radius: 0.9rem;
+      padding: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.9rem;
+    }
+
+    .skill-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .skill-pill {
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .project-card {
+      background: #020617;
+      border-radius: 1rem;
+      padding: 1.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .project-title {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .project-link {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: #38bdf8;
+    }
+
+    .project-link span {
+      font-size: 0.9rem;
+    }
+
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 2rem;
+    }
+
+    .contact-info {
+      font-size: 0.95rem;
+      color: #d1d5db;
+    }
+
+    .contact-info p {
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-list span {
+      color: #9ca3af;
+    }
+
+    .contact-form {
+      background: #020617;
+      border-radius: 1rem;
+      padding: 1.3rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .form-group {
+      margin-bottom: 0.8rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+      color: #cbd5f5;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.5rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 1.5rem 0;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="container nav">
+      <div class="logo">Anubhav</div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home">
+    <div class="container hero">
+      <div>
+        <h1 class="hero-title">
+          Hi, I'm <span>ANUBHAV BISWAS</span> 👋
+        </h1>
+        <p class="hero-subtitle">B.Tech IT Student · Web Dev Learner · DSA Enthusiast</p>
+        <p class="hero-description">
+          I’m an Information Technology student at the University of Calcutta, exploring web development,
+          C and Python programming, and Data Structures & Algorithms. I enjoy building clean, responsive
+          websites and solving logical problems.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">View My Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+
+        <div class="hero-tags">
+          <span class="tag">C</span>
+          <span class="tag">Python</span>
+          <span class="tag">HTML & CSS</span>
+          <span class="tag">Data Structures & Algorithms</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h2>Quick Snapshot</h2>
+        <p>
+          B.Tech Information Technology student at the University of Calcutta. Passionate about coding,
+          web development and problem solving. Actively improving my skills through projects and practice.
+        </p>
+        <ul>
+          <li>🎓 B.Tech in Information Technology</li>
+          <li>🏫 University of Calcutta</li>
+          <li>💻 C, Python, HTML, CSS, DSA</li>
+          <li>📍 Kolkata, India</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">A short introduction about who I am and what I do.</p>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm Anubhav, an aspiring developer who enjoys learning new technologies and writing clean,
+            understandable code. I like to break down problems into smaller parts and build step-by-step
+            solutions.
+          </p>
+          <p>
+            Right now, I'm focusing on strengthening my C and Python fundamentals, practicing Data Structures
+            & Algorithms, and building small projects using HTML and CSS to improve my web development skills.
+          </p>
+          <ul class="about-list">
+            <li><strong>Name:</strong> <span>ANUBHAV BISWAS</span></li>
+            <li><strong>Education:</strong> <span>B.Tech in Information Technology</span></li>
+            <li><strong>College:</strong> <span>University of Calcutta</span></li>
+            <li><strong>Location:</strong> <span>Kolkata, India</span></li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <strong>Highlights</strong>
+          <p>
+            • Participated in SIH (Smart India Hackathon) project work.<br />
+            • Comfortable with C and Python for problem solving.<br />
+            • Learning and practicing DSA for better logic building.<br />
+            • Exploring frontend basics with HTML and CSS.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <p class="section-subtitle">Technologies and concepts I’m currently working with.</p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-title">Programming Languages</div>
+          <div class="skill-items">
+            <span class="skill-pill">C</span>
+            <span class="skill-pill">Python</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-title">Web Development</div>
+          <div class="skill-items">
+            <span class="skill-pill">HTML</span>
+            <span class="skill-pill">CSS</span>
+            <span class="skill-pill">Responsive Layout Basics</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-title">Core CS Concepts</div>
+          <div class="skill-items">
+            <span class="skill-pill">Data Structures</span>
+            <span class="skill-pill">Algorithms</span>
+            <span class="skill-pill">Problem Solving</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-title">Tools & Workflow</div>
+          <div class="skill-items">
+            <span class="skill-pill">VS Code</span>
+            <span class="skill-pill">Git (basic)</span>
+            <span class="skill-pill">GitHub (basic)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-subtitle">Some of the work and practice projects I’ve been involved in.</p>
+
+      <div class="projects-grid">
+        <div class="project-card">
+          <div>
+            <div class="project-title">SIH Project (Smart India Hackathon)</div>
+            <p class="project-desc">
+              Worked on a problem statement as part of the Smart India Hackathon initiative, focusing on
+              building a practical solution using my programming and problem-solving skills.
+            </p>
+            <div class="project-tags">
+              <span class="tag">C / Python</span>
+              <span class="tag">Problem Solving</span>
+              <span class="tag">Teamwork</span>
+            </div>
+          </div>
+          <a href="#" class="project-link">
+            Details / Repository (coming soon) <span>↗</span>
+          </a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-title">Personal Portfolio Website</div>
+            <p class="project-desc">
+              This website itself — a responsive portfolio created using HTML and CSS to showcase my
+              background, skills, and projects.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">Responsive Design</span>
+            </div>
+          </div>
+          <a href="#" class="project-link">
+            Live Demo / GitHub (soon) <span>↗</span>
+          </a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-title">DSA Practice Programs</div>
+            <p class="project-desc">
+              A collection of C and Python programs implementing basic data structures and algorithms like
+              arrays, searching, sorting, and recursion for concept clarity.
+            </p>
+            <div class="project-tags">
+              <span class="tag">C</span>
+              <span class="tag">Python</span>
+              <span class="tag">DSA</span>
+            </div>
+          </div>
+          <a href="#" class="project-link">
+            Practice Codes (local / GitHub) <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-subtitle">Feel free to reach out for collaboration, doubts or opportunities.</p>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>
+            I’m open to discussing project ideas, coding doubts, hackathons or any learning opportunities.
+            You can contact me through the details below.
+          </p>
+          <ul class="contact-list">
+            <!-- CHANGE THESE DETAILS TO YOUR REAL ONES -->
+            <li><strong>Email:</strong> <span>your.email@example.com</span></li>
+            <li><strong>GitHub:</strong> <span>github.com/yourusername</span></li>
+            <li><strong>LinkedIn:</strong> <span>linkedin.com/in/yourprofile</span></li>
+          </ul>
+        </div>
+
+        <div class="contact-form">
+          <!-- This is only UI; to make it functional we need backend / form service -->
+          {% if success %}
+  <p style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #22c55e;">
+    {{ success }}
+  </p>
+{% endif %}
+
+<form method="POST" action="/contact">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" placeholder="Your Name" />
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" placeholder="your.email@example.com" />
+  </div>
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="Write your message here..."></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">
+    Send Message
+  </button>
+</form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div>© <span id="year"></span> ANUBHAV BISWAS. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navbar toggle
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    // Close nav when clicking a link (on mobile)
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+
+    // Dynamic year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

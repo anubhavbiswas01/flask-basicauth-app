@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Messages | Anubhav</title>
+  <style>
+    body {
+      background: #0f172a;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 2rem;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid #1f2937;
+      padding: 0.6rem;
+      vertical-align: top;
+    }
+    th {
+      background: #020617;
+    }
+    tr:nth-child(even) {
+      background: #020617;
+    }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Messages</h1>
+  <p><a href="/">← Back to Portfolio</a></p>
+
+  {% if messages and messages|length > 0 %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Time</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for msg in messages %}
+          <tr>
+            <td>{{ msg.id }}</td>
+            <td>{{ msg.created_at }}</td>
+            <td>{{ msg.name }}</td>
+            <td>{{ msg.email }}</td>
+            <td>{{ msg.message }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No messages yet.</p>
+  {% endif %}
+</body>
+</html>
